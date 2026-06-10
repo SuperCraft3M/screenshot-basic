@@ -1,5 +1,25 @@
 # screenshot-basic for FiveM
 
+> **Patched fork — DeprecationWarning [DEP0005]**
+>
+> The `formidable@1.2.2` dependency (pulled in by `koa-body`, used to parse
+> multipart uploads on the server side) uses the old `new Buffer()` constructor,
+> which emits `(node) [DEP0005] DeprecationWarning: Buffer() is deprecated`
+> on every screenshot upload. It is harmless, but it clutters the logs.
+>
+> Because the faulty code is in a **dependency** (`node_modules/`, regenerated
+> on every `yarn install`), it cannot be permanently fixed “in place”. This
+> fork therefore uses **[patch-package](https://github.com/ds300/patch-package)**:
+>
+> - `patches/formidable+1.2.2.patch` replaces `new Buffer(n)` → `Buffer.alloc(n)`
+>   and `new Buffer(str, 'base64')` → `Buffer.from(str, 'base64')`.
+> - The `"postinstall": "patch-package"` hook (in `package.json`) **automatically
+>   reapplies** the patch after each `yarn install` / `npm install`, so it
+>   survives reinstalls and rebuilds (webpack then bundles the patched
+>   formidable → no more warning).
+>
+> Nothing else about the original behavior is changed.
+
 ## Description
 
 screenshot-basic is a basic resource for making screenshots of clients' game render targets using FiveM. It uses the same backing

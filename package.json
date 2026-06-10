@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "patch-package"
   },
   "author": "",
   "license": "MIT",
@@ -23,6 +24,8 @@
     "koa-body": "^4.0.6",
     "koa-router": "^7.4.0",
     "mv": "^2.1.1",
+    "patch-package": "^8.0.1",
+    "postinstall-postinstall": "^2.1.0",
     "ts-loader": "^5.3.3",
     "typescript": "3.2.2",
     "uuid": "^3.3.2",
